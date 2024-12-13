@@ -1,4 +1,5 @@
 import random
+import re
 
 # Variáveis globais
 nums = []
@@ -47,14 +48,27 @@ class Conta:
         return self.__titular
 
     def getSenha(self) -> str:
-        return self.__senha        
+        return self.__senha     
+
+def solicitar_cpf() -> str:
+    while True:
+        cpf = input("Insira seu CPF:")
+        cpf_numeros = re.sub(r'\D', '', cpf)
+
+        if len(cpf_numeros) == 11:
+
+            cpf_formatado = f"{cpf_numeros[:3]}.{cpf_numeros[3:6]}.{cpf_numeros[6:9]}-{cpf_numeros[9:]}"
+            return cpf_formatado
+        else: 
+            print("O CPF não pode conter letras e deve ter somente 11 números. Tente novamente.")
+
         
 
 def criar_conta() -> None:
     printLine()
     nome = input("Insira seu nome: ")        
     idade = getInt("Insira sua idade: ")        
-    cpf = input("Insira seu CPF: ")        
+    cpf = solicitar_cpf()      
     senha = input("Crie uma senha: ")
     
     newPessoa = Pessoa(nome, idade, cpf)
