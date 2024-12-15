@@ -1,18 +1,18 @@
 import re
 
-def getOption(txt: str, valid_options: list[int]) -> int:
+def getOption(txt: str, validOptions: list[int]) -> int:
     while True:
         print(txt)
         try:
             option = int(input())
-            if option in valid_options:
+            if option in validOptions:
                 return option
             else:
                 print("Essa opção não existe.")
         except ValueError:
             print("Valor incorreto. Digite um número válido.")
 
-def getIdade(txt: str) -> int:
+def getAge(txt: str) -> int:
     while True:
         try:
             num = int(input(txt))

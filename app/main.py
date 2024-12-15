@@ -1,42 +1,47 @@
-from funcoesMenu import getMenu, getMenuLogado, printLine, getMenuTransacao
-from funcoesGet import getOption, getFloat, getCpf
-from funcoes import criar_conta, realizar_login
-from funcoesLogado import efetuarTransacao, verInfos
-from funcoes.buscas import buscar_conta_por_cpf, buscar_conta_por_num
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from classConta import Conta
-from classPessoa import Pessoa
+
+from functions.functionsMenu import getMenu, getLoggedMenu, printLine, getTransactionMenu
+from functions.functionsGet import getOption, getFloat, getCpf
+from functions.functionsHome import createAccount, login
+from functions.functionsLogged import makeTransaction, viewInfo
+from functions.searches import searchAccountByCpf, searchAccountByNum
+
+from classes.accountClass import Account
+from classes.personClass import Person
 
 # Variáveis globais
-from globais import contas, pessoas
-contaLogada = False
+from globalsVar import accounts, persons
+loggedAccount = False
 
 #TODO -> criar class transação
 #TODO -> cada transação deve ser uma instancia da class Transação
 #TODO -> guardar o histórico de transações
 
-osoas = Pessoa("osoas", 23, "123")
-roni = Pessoa("roni", 50, "999")
-pessoas.append(osoas)
-pessoas.append(roni)
+osoas = Person("osoas", 23, "11111111111")
+roni = Person("roni", 50, "99999999999")
+persons.append(osoas)
+persons.append(roni)
 
 
-contas.append(Conta(osoas, "123"))
-contas.append(Conta(roni, "123"))
+accounts.append(Account(osoas, "123"))
+accounts.append(Account(roni, "123"))
 
 
 def main() -> None:
-    global contaLogada
+    global loggedAccount
     
     while True:
         option = getOption(getMenu(), [1, 2, 0])
 
         if option == 1:
-            criar_conta()
+            createAccount()
             input()
     
         if option == 2:
-            contaLogada = realizar_login()
+            loggedAccount = login()
             input()
             break
             
@@ -46,25 +51,25 @@ def main() -> None:
             return
 
     while True:
-        option = getOption(getMenuLogado(), [1, 2, 3, 4, 5, 6])
+        option = getOption(getLoggedMenu(), [1, 2, 3, 4, 5, 6])
         if option == 1:
-            print(verInfos(contaLogada))
+            print(viewInfo(loggedAccount))
             input()
         
         if option == 2:
             #TODO -> salvar os contatos 
-            optionTransacao = getOption(getMenuTransacao(), [1, 2, 3])
-            contaDestino = False     
+            transactionOption = getOption(getTransactionMenu(), [1, 2, 3])
+            destinationAccount = False     
             
-            if optionTransacao == 1:
-                cpfDestino = getCpf("Insira o cpf da conta destino: ")
-                contaDestino = buscar_conta_por_cpf(cpfDestino)
-            if optionTransacao == 2:
-                numDestino = input("Insira o numero da conta destino: ")
-                contaDestino = buscar_conta_por_num(numDestino)
+            if transactionOption == 1:
+                destinationCpf = getCpf("Insira o cpf da conta destino: ")
+                destinationAccount = searchAccountByCpf(destinationCpf)
+            if transactionOption == 2:
+                destinationNum = input("Insira o numero da conta destino: ")
+                destinationAccount = searchAccountByNum(destinationNum)
                 
-            valor = getFloat("insira o valor da transação: ")
-            efetuarTransacao(contaLogada, contaDestino, valor)
+            value = getFloat("insira o valor da transação: ")
+            makeTransaction(loggedAccount, destinationAccount, value)
         if option == 3:
             #TODO -> cadastro de chave pix nova
             return
@@ -72,10 +77,10 @@ def main() -> None:
             #TODO -> ver os contatos salvos para efetuar pix rápidamente
             return
         if option == 5:
-            contaLogada.peDeMeia()    
+            loggedAccount.peDeMeia()    
         
         if option == 6:
-            contaLogada = False
+            loggedAccount = False
             main()
             
         # 1 ver infos 

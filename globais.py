@@ -1,4 +1,0 @@
-
-nums = []
-pessoas = []
-contas = []

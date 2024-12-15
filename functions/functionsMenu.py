@@ -11,7 +11,7 @@ def getMenu() -> str:
 ========================================
 """
 
-def getMenuLogin() -> str:
+def getLoginMenu() -> str:
     return """
 ========================================
             Como deseja logar
@@ -20,7 +20,7 @@ def getMenuLogin() -> str:
 2. Número da conta
 ========================================
     """
-def getMenuLogado() -> str:
+def getLoggedMenu() -> str:
     return """
 ========================================
           O que deseja fazer?
@@ -34,7 +34,7 @@ def getMenuLogado() -> str:
 ========================================
     """
     
-def getMenuTransacao() -> str:
+def getTransactionMenu() -> str:
     return """
 ========================================
      Qual tipo de chave irá inserir
