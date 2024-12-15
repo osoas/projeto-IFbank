@@ -2,7 +2,7 @@ from funcoesMenu import getMenu, getMenuLogado, printLine, getMenuTransacao
 from funcoesGet import getOption, getFloat, getCpf
 from funcoes import criar_conta, realizar_login
 from funcoesLogado import efetuarTransacao, verInfos
-from buscas import buscar_conta_por_cpf, buscar_conta_por_num
+from funcoes.buscas import buscar_conta_por_cpf, buscar_conta_por_num
 
 from classConta import Conta
 from classPessoa import Pessoa

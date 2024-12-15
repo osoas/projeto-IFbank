@@ -4,7 +4,7 @@ from classConta import Conta
 from classPessoa import Pessoa
 from funcoesGet import getIdade, getCpf, getOption 
             
-from buscas import buscar_conta_por_cpf, buscar_conta_por_num
+from funcoes.buscas import buscar_conta_por_cpf, buscar_conta_por_num
 
 def criar_conta() -> None:
     printLine()
