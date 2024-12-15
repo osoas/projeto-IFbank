@@ -1,0 +1,4 @@
+
+nums = []
+pessoas = []
+contas = []
