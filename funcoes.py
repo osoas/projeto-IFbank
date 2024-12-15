@@ -7,8 +7,6 @@ from funcoesGet import getIdade, getCpf, getOption
 from buscas import buscar_conta_por_cpf, buscar_conta_por_num
 
 def criar_conta() -> None:
-    global pessoas, contas, nums
-    
     printLine()
     nome = input("Insira seu nome: ")        
     idade = getIdade("Insira sua idade: ")        
@@ -28,16 +26,16 @@ def criar_conta() -> None:
     print(f"Conta criada com sucesso! Número da conta: {newNum}")
     printLine()
 
-def realizar_login() -> None:
+def realizar_login() -> Conta | bool:
     printLine()
     optionLogin = getOption(getMenuLogin(), [1, 2])
     contaLogin = None
-
+    
     if optionLogin == 1:
         cpfInserido = getCpf("Insira o CPF do titular: ")
         contaLogin = buscar_conta_por_cpf(cpfInserido)
-    elif optionLogin == 2:
-        numInserido = input("Insira o número da conta: ")
+    if optionLogin == 2:
+        numInserido = input("Insira o número da conta: ") #TODO -> função usando regex para validar o numero da conta, criar um padrão de numero
         contaLogin = buscar_conta_por_num(numInserido)
 
     if contaLogin:
@@ -50,6 +48,7 @@ def realizar_login() -> None:
     else:
         printLine()
         print("Conta não encontrada.")
+        return False
 
 
 
@@ -65,6 +64,7 @@ def autenticar_senha(conta: Conta) -> bool:
             return True
         else:
             numTentativas += 1
+            #TODO -> se passar o numero de tentativas, bloquar conta
             print(f"Senha incorreta! Tentativas restantes: {3 - numTentativas}")
 
     printLine()

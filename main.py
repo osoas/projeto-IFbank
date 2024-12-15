@@ -1,9 +1,9 @@
 from funcoesMenu import getMenu, getMenuLogado, printLine, getMenuTransacao
-
 from funcoesGet import getOption, getFloat, getCpf
 from funcoes import criar_conta, realizar_login
 from funcoesLogado import efetuarTransacao, verInfos
 from buscas import buscar_conta_por_cpf, buscar_conta_por_num
+
 from classConta import Conta
 from classPessoa import Pessoa
 
@@ -11,9 +11,9 @@ from classPessoa import Pessoa
 from globais import contas, pessoas
 contaLogada = False
 
-#TODO -> guardar o histórico de transações
 #TODO -> criar class transação
 #TODO -> cada transação deve ser uma instancia da class Transação
+#TODO -> guardar o histórico de transações
 
 osoas = Pessoa("osoas", 23, "123")
 roni = Pessoa("roni", 50, "999")
@@ -30,7 +30,7 @@ def main() -> None:
     
     while True:
         option = getOption(getMenu(), [1, 2, 0])
-        
+
         if option == 1:
             criar_conta()
             input()
@@ -57,12 +57,13 @@ def main() -> None:
             contaDestino = False     
             
             if optionTransacao == 1:
-                cpfDestino = getCpf("Insira o cpf da conta destino")
+                cpfDestino = getCpf("Insira o cpf da conta destino: ")
                 contaDestino = buscar_conta_por_cpf(cpfDestino)
             if optionTransacao == 2:
-                numDestino = input("Insira o numero da conta destino")
+                numDestino = input("Insira o numero da conta destino: ")
                 contaDestino = buscar_conta_por_num(numDestino)
-            valor = getFloat("insira o valor da transação")
+                
+            valor = getFloat("insira o valor da transação: ")
             efetuarTransacao(contaLogada, contaDestino, valor)
         if option == 3:
             #TODO -> cadastro de chave pix nova

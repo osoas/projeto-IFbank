@@ -6,7 +6,7 @@ def buscar_conta_por_cpf(cpf: str) -> Conta | None:
         if cpf == pessoa.getCpf():
             for conta in contas:
                 if conta.getTitular() == pessoa:
-                    return conta
+                    return conta        
     return None
 
 def buscar_conta_por_num(num: str) -> Conta | None:

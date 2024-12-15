@@ -1,5 +1,6 @@
 from classPessoa import Pessoa
 from gerarNum import gerarNum
+
 class Conta:
     def __init__(self, titular: Pessoa, senha: str, saldoReal: float = 0, num: str = gerarNum()):
         self.__num = num
@@ -21,7 +22,7 @@ class Conta:
     
     def __setSaldoReal(self, newValor: float) -> None:
         self.__saldoReal = newValor
-    
+
     def tirar(self, valor: float) -> bool:
         saldoReal = self.getSaldoReal()
         if saldoReal - valor >=  0:

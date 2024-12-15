@@ -1,4 +1,5 @@
 import re
+
 def getOption(txt: str, valid_options: list[int]) -> int:
     while True:
         print(txt)
