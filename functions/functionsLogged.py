@@ -18,7 +18,6 @@ def makeTransaction(senderAccount: Account, destinationAccount: Account, value: 
     removed = senderAccount.take(value)
     if removed:        
         received = destinationAccount.receive(value)
-        #TODO -> se a pessoa removeu o dinheiro e a outra não recebeu, retorne o dinheiro para a conta do remetente
         if not received:
             senderAccount.receive(value)
        
