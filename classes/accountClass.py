@@ -2,11 +2,12 @@ from classes.personClass import Person
 from functions.generateNum import generateNum
 
 class Account:
-    def __init__(self, holder: Person, password: str, RealValue: float = 0, num: str = generateNum()):
+    def __init__(self, holder: Person, password: str, RealValue: float = 0, num: str = generateNum(), keys: list[str] = None):
         self.__num = num
         self.__realValue = RealValue
         self.__holder = holder
         self.__password = password
+        self.__keys = keys if keys is not None else [] 
 
     def getNum(self) -> str:
         return self.__num
@@ -16,6 +17,18 @@ class Account:
 
     def getPass(self) -> str:
         return self.__password    
+    
+    def getKey(self, index: int) -> str:
+        return self.__keys[index]
+    
+    def getKeys(self) -> list[str]:
+        return self.__keys
+    
+    def addKey(self, key: str)  -> bool:
+        if not key in self.getKeys():
+            self.__keys.append(key)
+            return True
+        return False
     #TODO -> validação da senha está sendo feita com getPass, não pode haver um getPass público, por isso, fazer método de verificação de senha dentro da classe Account
     
     def getRealValue(self) -> float:

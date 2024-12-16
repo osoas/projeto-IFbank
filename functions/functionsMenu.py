@@ -30,7 +30,7 @@ def getLoggedMenu() -> str:
 3. Cadastrar pix
 4. Contantos salvos
 5. pédimea
-5. Sair
+6. Sair
 ========================================
     """
     
@@ -41,7 +41,19 @@ def getTransactionMenu() -> str:
 ========================================
 1. CPF 
 2. Número da conta
+3. Outro
+========================================
+    """
+
+def getNewKeyMenu() -> str:
+    return """
+========================================
+        Escolha um chave para adicionar
+========================================
+1. CPF 
+2. Número da conta
 3. Chave aleatória --- TODO
+4. Email
 ========================================
     """
 

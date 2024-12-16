@@ -14,3 +14,9 @@ def searchAccountByNum(num: str) -> Account | None:
         if num == account.getNum():
             return account
     return None
+
+def searchAccountByKey(key: str) -> Account | None:
+    for account in accounts:
+        if key in account.getKeys():
+            return account
+    return None

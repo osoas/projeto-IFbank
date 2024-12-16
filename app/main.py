@@ -3,11 +3,11 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
-from functions.functionsMenu import getMenu, getLoggedMenu, printLine, getTransactionMenu
-from functions.functionsGet import getOption, getFloat, getCpf
+from functions.functionsMenu import getMenu, getLoggedMenu, printLine
+from functions.functionsGet import getOption
 from functions.functionsHome import createAccount, login
-from functions.functionsLogged import makeTransaction, viewInfo
-from functions.searches import searchAccountByCpf, searchAccountByNum
+from functions.functionsLogged import viewInfo, transaction, registerKey
+
 
 from classes.accountClass import Account
 from classes.personClass import Person
@@ -24,10 +24,10 @@ osoas = Person("osoas", 23, "11111111111")
 roni = Person("roni", 50, "99999999999")
 persons.append(osoas)
 persons.append(roni)
-
-
-accounts.append(Account(osoas, "123"))
-accounts.append(Account(roni, "123"))
+contaOsoas = Account(osoas, "123")
+contaRoni = Account(roni, "123")
+accounts.append(contaOsoas)
+accounts.append(contaRoni)
 
 
 def main() -> None:
@@ -58,21 +58,12 @@ def main() -> None:
         
         if option == 2:
             #TODO -> salvar os contatos 
-            transactionOption = getOption(getTransactionMenu(), [1, 2, 3])
-            destinationAccount = False     
-            
-            if transactionOption == 1:
-                destinationCpf = getCpf("Insira o cpf da conta destino: ")
-                destinationAccount = searchAccountByCpf(destinationCpf)
-            if transactionOption == 2:
-                destinationNum = input("Insira o numero da conta destino: ")
-                destinationAccount = searchAccountByNum(destinationNum)
-                
-            value = getFloat("insira o valor da transação: ")
-            makeTransaction(loggedAccount, destinationAccount, value)
+            transaction(loggedAccount)
+            input()
         if option == 3:
-            #TODO -> cadastro de chave pix nova
-            return
+            #DOING by isaias -> cadastro de chave pix nova
+            registerKey(loggedAccount)
+            input()
         if option == 4:
             #TODO -> ver os contatos salvos para efetuar pix rápidamente
             return
