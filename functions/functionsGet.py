@@ -45,3 +45,30 @@ def getCpf(txt: str) -> str:
             print("cpf incorreto. Digite um cpf válido")
      
 
+def getNum(txt: str) -> str:
+    while True:
+        Num = input(txt)
+        if re.match(r"^\d{9}$",Num):
+            return Num
+        else:
+            print("o Numero de verificaçao incorreto.Digite um numero valido")
+
+
+def getpassword(txt: str) -> str:
+    while True:
+        password = input(txt)
+        if re.match(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{4}$', password):
+            return password
+        else:
+            print(
+                "Sua senha deve conter:\n"
+                "  * Exatamente 11 caracteres\n"
+                "  * Pelo menos uma letra MAIÚSCULA\n"
+                "  * Pelo menos um número\n"
+                "  * Pelo menos um caractere especial (!@#$%?&)\n"
+            )
+
+
+    
+
+
