@@ -1,3 +1,4 @@
+
 class Person:
     def __init__(self, name: str, age: int, cpf: str):
         self.__cpf = cpf
@@ -13,4 +14,3 @@ class Person:
     def getAge(self) -> int:
         return self.__age
     
-

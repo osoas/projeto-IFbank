@@ -28,7 +28,7 @@ def getLoggedMenu() -> str:
 1. Ver informações
 2. Realizar pix
 3. Cadastrar pix
-4. Contantos salvos
+4. Contatos salvos
 5. pédimea
 6. Sair
 ========================================
@@ -48,7 +48,7 @@ def getTransactionMenu() -> str:
 def getNewKeyMenu() -> str:
     return """
 ========================================
-        Escolha um chave para adicionar
+    Escolha um chave para adicionar
 ========================================
 1. CPF 
 2. Número da conta
