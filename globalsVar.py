@@ -1,4 +1,3 @@
-
 nums = []
 persons = []
 accounts = []

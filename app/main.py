@@ -8,20 +8,19 @@ from functions.functionsGet import getOption
 from functions.functionsHome import createAccount, login
 from functions.functionsLogged import viewInfo, transaction, registerKey
 
-
 from classes.accountClass import Account
 from classes.personClass import Person
 
 # Variáveis globais
 from globalsVar import accounts, persons
-loggedAccount = False
+loggedAccount = None
 
 #TODO -> criar class transação
 #TODO -> cada transação deve ser uma instancia da class Transação
 #TODO -> guardar o histórico de transações
 
 osoas = Person("osoas", 23, "11111111111")
-roni = Person("roni", 50, "99999999999")
+roni = Person("roni", 50, "99999999999") 
 persons.append(osoas)
 persons.append(roni)
 contaOsoas = Account(osoas, "123")
@@ -71,12 +70,12 @@ def main() -> None:
             loggedAccount.peDeMeia()    
         
         if option == 6:
-            loggedAccount = False
+            loggedAccount = None
             main()
             
         # 1 ver infos 
         # 2 realizar transação 
-        # 3 cadastrar pix TODO
+        # 3 cadastrar pix
         # 4 contatos salvos TODO
         # 5 pé de meia
         # 6 sair da conta

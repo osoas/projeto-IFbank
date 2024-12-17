@@ -35,7 +35,7 @@ def login() -> Account | bool:
         cpfInserted = getCpf("Insira o CPF do titular: ")
         loginAccount = searchAccountByCpf(cpfInserted)
     if optionLogin == 2:
-        numInserted = input("Insira o número da conta: ") #TODO -> função usando regex para validar o numero da conta, criar um padrão de numero
+        numInserted = input("Insira o número da conta: ")
         loginAccount = searchAccountByNum(numInserted)
 
     if loginAccount:
