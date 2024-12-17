@@ -1,5 +1,5 @@
 from classes.personClass import Person
-from functions.generateNum import generateNum
+from functions.generates import generateNum
 
 class Account:
     def __init__(self, holder: Person, password: str, RealValue: float = 0, num: str = generateNum(), keys: list[str] = None):

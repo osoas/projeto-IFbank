@@ -57,7 +57,7 @@ def getNum(txt: str) -> str:
 def getpassword(txt: str) -> str:
     while True:
         password = input(txt)
-        if re.match(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{9}$', password):
+        if re.match(r'^?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{9}$', password):
             return password
         else:
             print(
@@ -67,6 +67,7 @@ def getpassword(txt: str) -> str:
                 "  * Pelo menos um número\n"
                 "  * Pelo menos um caractere especial (!@#$%?&)\n"
             )
+
 
 
     
