@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from functions.functionsMenu import getMenu, getLoggedMenu, printLine
 from functions.functionsGet import getOption
 from functions.functionsHome import createAccount, login
-from functions.functionsLogged import viewInfo, transaction, registerKey
+from functions.functionsLogged import viewInfo, transaction, registerKey, makeDeposit
 
 from classes.accountClass import Account
 from classes.personClass import Person
@@ -71,6 +71,11 @@ def main() -> None:
         
         if option == 6:
             loggedAccount = None
+            
+
+        if option == 7:
+            makeDeposit(loggedAccount) 
+            input()
             main()
             
         # 1 ver infos 
@@ -79,6 +84,7 @@ def main() -> None:
         # 4 contatos salvos TODO
         # 5 pé de meia
         # 6 sair da conta
+        # 7 Realizar depósito
         
         
         
