@@ -84,4 +84,4 @@ def makeDeposit(account: Account, value: float) -> bool:
         print(f"Depósito de R${value:.2f} realizado com sucesso na conta de {account.getHolder().getName()}.")
     else:
         print("Não foi possível realizar o depósito.")
-        return success
+    return success
