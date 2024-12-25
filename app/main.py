@@ -50,7 +50,7 @@ def main() -> None:
             return
 
     while True:
-        option = getOption(getLoggedMenu(), [1, 2, 3, 4, 5, 6])
+        option = getOption(getLoggedMenu(), [1, 2, 3, 4, 5, 6, 7])
         if option == 1:
             print(viewInfo(loggedAccount))
             input()
