@@ -31,6 +31,7 @@ def getLoggedMenu() -> str:
 4. Contatos salvos
 5. pédimea
 6. Sair
+7. Realizar depósito
 ========================================
     """
     
