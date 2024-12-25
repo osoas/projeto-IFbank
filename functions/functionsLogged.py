@@ -73,3 +73,15 @@ def registerKey(account: Account) -> bool:
         return True
     print("Falha ao registrar chave pix")
     return False
+
+def makeDeposit(account: Account, value: float) -> bool:
+    if value <=0:
+        print("O valor do depósito deve ser maior que zero.")
+        return False
+
+    success = account.receive(value)
+    if success:
+        print(f"Depósito de R${value:.2f} realizado com sucesso na conta de {account.getHolder().getName()}.")
+    else:
+        print("Não foi possível realizar o depósito.")
+        return success
