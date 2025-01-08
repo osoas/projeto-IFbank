@@ -39,11 +39,11 @@ def getFloat(txt: str) -> float:
 def getCpf(txt: str) -> str:
     while True:
         cpf = input(txt)
-        if re.match(r"^\d{11}$", cpf):
+        if re.match(r'^\d{3}\.\d{3}\.\d{3}-\d{2}$', cpf):
             return cpf
         else:
             print("cpf incorreto. Digite um cpf válido")
-     
+
 
 def getNum(txt: str) -> str:
     while True:
