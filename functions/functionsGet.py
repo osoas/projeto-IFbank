@@ -17,7 +17,7 @@ def getAge(txt: str) -> int:
         try:
             num = int(input(txt))
             if num >= 18:
-                return num
+               return num 
             else:
                 print("Apenas maiores de 18 anos são aceitos.")
         except ValueError:
@@ -54,7 +54,7 @@ def getNum(txt: str) -> str:
             print("o número inserido não atende os padrões. Digite um numero de exatamente 9 digitos")
 
 
-def getpassword(txt: str) -> str:
+def getPassword(txt: str) -> str:
     while True:
         password = input(txt)
         if re.match(r'^?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{9}$', password):
@@ -68,8 +68,15 @@ def getpassword(txt: str) -> str:
                 "  * Pelo menos um caractere especial (!@#$%?&)\n"
             )
 
+def getEmail(txt: str) -> str:
+    while True:
+        email = input(txt)
+        pattern = (r"^(?!\.)(?!.*\.\.)[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+"r"@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$")
+        if re.match(pattern, email):
+            return email
+        else:
+            print("E-mail invalido")
 
 
-    
 
 
