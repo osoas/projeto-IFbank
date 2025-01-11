@@ -1,29 +1,25 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-
-from globalsVar import nums
 import random
 import string
+from firebase.config import db
 
 
 
 def generateNum() -> str:
-    num = str(random.randint(100000000, 999999999))
-    while num in nums:
-        num = str(random.randint(100000000, 999999999)) 
-    return num
+    while True:
+        num = str(random.randint(100000000, 999999999))
+        
+        accountsRef = db.collection("accounts").document(num)
+        if not accountsRef.get().exists: 
+            return num
 
 
-numspix = []
+
 def generatePix() -> str:
     while True:
-        pix = ''.join([str(random.choice(string.ascii_letters  + string.digits)) for _ in range(9)])
-
-        if pix not in numspix:
-            numspix.append(pix)
+        pix = ''.join(random.choices(string.ascii_letters + string.digits, k=9))
+        
+        accountsRef = db.collection("accounts")
+        query = accountsRef.where("keys", "array_contains", pix).get()
+        
+        if not query:
             return pix
-
-
-    

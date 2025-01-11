@@ -1,3 +1,0 @@
-nums = []
-persons = []
-accounts = []

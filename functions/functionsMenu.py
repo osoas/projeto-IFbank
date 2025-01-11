@@ -29,9 +29,8 @@ def getLoggedMenu() -> str:
 2. Realizar pix
 3. Cadastrar pix
 4. Contatos salvos
-5. pédimea
-6. Sair
-7. Realizar depósito
+5. Sair
+6. Realizar depósito
 ========================================
     """
     
@@ -53,10 +52,19 @@ def getNewKeyMenu() -> str:
 ========================================
 1. CPF 
 2. Número da conta
-3. Chave aleatória --- TODO
+3. Chave aleatória
 4. Email
 ========================================
     """
 
+def getSaveContactMenu() -> str:
+    return """
+========================================
+        Deseja salvar o contato?
+========================================
+1. Sim 
+2. Não
+========================================
+    """
 def printLine() -> None:
     print("=" * 40)

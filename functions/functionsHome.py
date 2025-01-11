@@ -1,30 +1,49 @@
-from functions.functionsMenu import getLoginMenu, printLine
-from globalsVar import persons, accounts, nums
-from classes.accountClass import Person
-from functions.functionsGet import getAge, getCpf, getOption 
-
-from functions.searches import searchAccountByNum, searchAccountByCpf
 from classes.accountClass import Account
+from functions.functionsGet import getAge, getCpf, getOption, getPassword
+from functions.searches import searchAccountByCpf, searchAccountByNum
+from functions.functionsMenu import printLine, getLoginMenu
+from functions.generates import generateNum
+from firebase.config import db
 
 def createAccount() -> None:
     printLine()
-    name = input("Insira seu nome: ")        
-    age = getAge("Insira sua idade: ")        
-    cpf = getCpf("Insira seu CPF: ")        
-    password = input("Crie uma senha: ")
-    
-    newPerson = Person(name, age, cpf)
-    
-    newAccount = Account(newPerson, password)
-    newNum = newAccount.getNum()
-    
-    nums.append(newNum)
-    persons.append(newPerson)
-    accounts.append(newAccount)
-    
+    cpf = getCpf("Insira seu CPF: ")
+
+    userRef = db.collection("users").document(cpf)
+    if userRef.get().exists:
+        printLine()
+        print("Já existe uma conta associada a este CPF.")
+        printLine()
+        return
+
+    name = input("Insira seu nome: ")
+    age = getAge("Insira sua idade: ")
+    password = getPassword("Crie uma senha: ")
+
+
+    userRef.set({
+        "name": name,
+        "age": age,
+        "cpf": cpf
+    })
+
+    accountNumber = generateNum()  
+    newAccount = Account(password=password, holderId=cpf, num=accountNumber)
+
+    db.collection("accounts").document(accountNumber).set({
+        "password": password,
+        "holderId": cpf, 
+        "num": newAccount.getNum(),
+        "realValue": 0,
+        "keys": [],
+        "contacts": []  
+    })
+
     printLine()
-    print(f"Conta criada com sucesso! Número da conta: {newNum}")
+    print(f"Conta criada com sucesso! Número da conta: {newAccount.getNum()}")
     printLine()
+
+
 
 def login() -> Account | bool:
     printLine()
@@ -32,17 +51,28 @@ def login() -> Account | bool:
     loginAccount = None
     
     if optionLogin == 1:
-        cpfInserted = getCpf("Insira o CPF do titular: ")
+        cpfInserted = input("Insira o CPF do titular: ")
         loginAccount = searchAccountByCpf(cpfInserted)
     if optionLogin == 2:
         numInserted = input("Insira o número da conta: ")
         loginAccount = searchAccountByNum(numInserted)
 
     if loginAccount:
-        print(f"Olá, {loginAccount.getHolder().getName()}")
         isValid = authenticatePass(loginAccount)
         if isValid:
-            return loginAccount
+            holderId = loginAccount.getHolderId()
+
+            usersRef = db.collection("users")
+            userDoc = usersRef.document(holderId).get()
+
+            if userDoc.exists:
+                user_data = userDoc.to_dict()
+                print(f"Olá, {user_data['name']}")  
+                return loginAccount
+            else:
+                printLine()
+                print("Usuário não encontrado.")
+                return False
         else:
             return False
     else:
@@ -64,11 +94,13 @@ def authenticatePass(account: Account) -> bool:
             return True
         else:
             attemps += 1
-            #TODO -> se passar o numero de tentativas, bloquar conta
             print(f"Senha incorreta! Tentativas restantes: {3 - attemps}")
 
     printLine()
-    print("Número máximo de tentativas alcançado. Tente novamente mais tarde.")
+    print("Número máximo de tentativas alcançado. A conta foi bloqueada.")
+    account.blockAccount() 
+
+    
     return False
 
 

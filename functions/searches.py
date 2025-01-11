@@ -1,22 +1,61 @@
+from firebase_admin import firestore
 from classes.accountClass import Account
-from globalsVar import persons, accounts
+import firebase_admin
+from firebase.config import db
 
 def searchAccountByCpf(cpf: str) -> Account | None:
-    for person in persons:
-        if cpf == person.getCpf():
-            for account in accounts:
-                if account.getHolder() == person:
-                    return account        
+    usersRef = db.collection("users")
+    query = usersRef.where("cpf", "==", cpf).get()
+
+    if query:
+        for userDoc in query:
+            userId = userDoc.id
+            accountsRef = db.collection("accounts")
+            accountQuery = accountsRef.where("holderId", "==", userId).get()
+
+            if accountQuery:
+                for accounDoc in accountQuery:
+                    accountData = accounDoc.to_dict()
+                    return Account(
+                        password=accountData['password'],
+                        num=accountData['num'],
+                        holderId=accountData['holderId'],
+                        keys=accountData['keys'],
+                        RealValue=accountData.get('realValue', 0),
+                        contacts=accountData.get("contacts", [])
+                    )
     return None
+
 
 def searchAccountByNum(num: str) -> Account | None:
-    for account in accounts:
-        if num == account.getNum():
-            return account
+    accountsRef = db.collection("accounts")
+    query = accountsRef.where("num", "==", num).get()
+
+    if query:
+        accountData = query[0].to_dict()
+        return Account(
+            password=accountData['password'],
+            num=accountData['num'],
+            holderId=accountData['holderId'],
+            keys=accountData['keys'],
+            RealValue=accountData.get('realValue', 0),
+            contacts=accountData.get("contacts", [])
+
+        )
     return None
 
+
 def searchAccountByKey(key: str) -> Account | None:
-    for account in accounts:
-        if key in account.getKeys():
-            return account
+    accountsRef = db.collection("accounts")
+    query = accountsRef.where("keys", "array_contains", key).get()
+
+    for account_doc in query:
+        accountData = account_doc.to_dict()
+        return Account(
+            password=accountData["password"],
+            holderId=accountData["holderId"],
+            num=accountData["num"],
+            RealValue=accountData.get("realValue", 0),
+            keys=accountData.get("keys", [])
+        )
     return None
