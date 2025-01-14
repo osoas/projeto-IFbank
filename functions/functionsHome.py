@@ -7,8 +7,8 @@ from firebase.config import db
 
 def createAccount() -> None:
     printLine()
-    cpf = getCpf("Insira seu CPF: ")
-
+    cpf = getCpf("Insira seu CPF: ") 
+    
     userRef = db.collection("users").document(cpf)
     if userRef.get().exists:
         printLine()
@@ -19,7 +19,6 @@ def createAccount() -> None:
     name = input("Insira seu nome: ")
     age = getAge("Insira sua idade: ")
     password = getPassword("Crie uma senha: ")
-
 
     userRef.set({
         "name": name,

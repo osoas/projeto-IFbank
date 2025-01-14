@@ -8,22 +8,21 @@ def searchAccountByCpf(cpf: str) -> Account | None:
     query = usersRef.where("cpf", "==", cpf).get()
 
     if query:
-        for userDoc in query:
-            userId = userDoc.id
-            accountsRef = db.collection("accounts")
-            accountQuery = accountsRef.where("holderId", "==", userId).get()
+        userDoc = query[0]
+        userId = userDoc.id
+        accountsRef = db.collection("accounts")
+        accountQuery = accountsRef.where("holderId", "==", userId).get()
 
-            if accountQuery:
-                for accounDoc in accountQuery:
-                    accountData = accounDoc.to_dict()
-                    return Account(
-                        password=accountData['password'],
-                        num=accountData['num'],
-                        holderId=accountData['holderId'],
-                        keys=accountData['keys'],
-                        RealValue=accountData.get('realValue', 0),
-                        contacts=accountData.get("contacts", [])
-                    )
+        if accountQuery:
+            accountData = accountQuery[0].to_dict()
+            return Account(
+                password=accountData['password'],
+                num=accountData['num'],
+                holderId=accountData['holderId'],
+                keys=accountData['keys'],
+                RealValue=accountData.get('realValue', 0),
+                contacts=accountData.get("contacts", [])
+            )   
     return None
 
 
@@ -48,14 +47,13 @@ def searchAccountByNum(num: str) -> Account | None:
 def searchAccountByKey(key: str) -> Account | None:
     accountsRef = db.collection("accounts")
     query = accountsRef.where("keys", "array_contains", key).get()
-
-    for account_doc in query:
-        accountData = account_doc.to_dict()
+    if query:
+        accountData = query[0].to_dict()
         return Account(
             password=accountData["password"],
             holderId=accountData["holderId"],
             num=accountData["num"],
             RealValue=accountData.get("realValue", 0),
             keys=accountData.get("keys", [])
-        )
+        )   
     return None
